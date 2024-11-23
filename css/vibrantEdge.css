@@ -1,0 +1,57 @@
+.vibrantEdge {
+  position: relative;
+  transform-style: preserve-3d;
+  /* Should match the ::before and ::after styles */
+  border-radius: 10px;
+  /* Omit in favor of other style class */
+  width: 300px;
+  margin: 0 auto;
+  padding: 2em;
+  text-align: center;
+  background: black;
+  color: white;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+.vibrantEdge::after,
+.vibrantEdge::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  box-sizing: initial;
+  transform: translateZ(-1px);
+  /* Animation and speed */
+  animation: 4s spin linear infinite;
+  /* Should match parent */
+  border-radius: 10px;
+  /* Border thickness */
+  padding: 3px;
+  /* Animation color */
+  /* background-image: conic-gradient(from var(--angle), transparent 80%, lightblue); */
+  background-image: conic-gradient(from var(--angle), red, blue, red);
+}
+.vibrantEdge::before {
+  /* Glow */
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
